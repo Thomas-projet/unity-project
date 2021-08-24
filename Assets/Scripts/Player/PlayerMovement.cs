@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    public RaycastHit targetInfo;
     public CharacterController controller;
     public Transform cam;
 
@@ -16,16 +16,20 @@ public class PlayerMovement : MonoBehaviour
     float turnSmoothVelocity;
 
     Vector3 keepDirectionUnderLeftClick = Quaternion.Euler(0f,0, 0f) * Vector3.forward;
-    int test = 0;
 
     Camera camm;
     Enemy enemy = new Enemy();
-    int check = 0;
+    bool targetIsAlive = false;
     int shooting = 0;
 
     private void Start()
     {
         camm = Camera.main;
+    }
+
+    public void test()
+    {
+        Debug.Log("TEST");
     }
 
     void FaceTarget(Vector3 enemyPosition)
@@ -45,13 +49,16 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (check == 1)
+            if (targetIsAlive)
             {
-                if (enemy!= null)
+                if (enemy != null)
                 {
                     enemy.Detargeted();
                 }
-                
+                else
+                {
+
+                }
             }
 
 
@@ -64,9 +71,10 @@ public class PlayerMovement : MonoBehaviour
                 if (hit.collider.name != "Platform")
                 {
                     Collider hitInfo = hit.collider;
+                    targetInfo = hit;
                     enemy = hitInfo.GetComponent<Enemy>();
                     enemy.Targeted();
-                    check = 1;
+                    targetIsAlive = true;
                 }
 
 
@@ -75,18 +83,6 @@ public class PlayerMovement : MonoBehaviour
             //{
             //    FaceTarget(enemy.transform.position);
             //}
-
-        }
-
-        if (Input.GetKey(KeyCode.Alpha2))
-        {
-            shooting = 1;
-            if (enemy!=null)
-            {
-                Debug.Log("Shooting " + enemy.name);
-                FaceTarget(enemy.transform.position);
-            }
-
 
         }
 
@@ -99,32 +95,40 @@ public class PlayerMovement : MonoBehaviour
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
 
-            if ((Input.GetKey("mouse 0") || test==1))
+            if (Input.GetKey("mouse 0"))
             {
-                test = 1;
                 controller.Move(keepDirectionUnderLeftClick.normalized * speed * Time.deltaTime);
-                if (Input.GetKey("mouse 1"))
-                {
-                    test = 0;
-                }
+
             }
 
             else
             {
                 if (Input.GetKey("mouse 1"))
                 {
-                    if(shooting==0)
+                    if (Input.GetKey(KeyCode.Alpha2))
+                    {
+                        //FaceTarget(enemy.transform.position);
+                    }
+                    else
                     {
                         transform.rotation = Quaternion.Euler(0, cam.eulerAngles.y, 0);
                     }
-                    
+
                     controller.Move(moveDir.normalized * speed * Time.deltaTime);
                     keepDirectionUnderLeftClick = moveDir;
 
                 }
                 else
                 {
-                    if (shooting == 0)
+                    if (Input.GetKey(KeyCode.Alpha2))
+                    {
+                        if (enemy != null)
+                        {
+                            FaceTarget(enemy.transform.position);
+                        }
+
+                    }
+                    else
                     {
                         transform.rotation = Quaternion.Euler(0f, angle, 0f);
                     }
@@ -132,17 +136,27 @@ public class PlayerMovement : MonoBehaviour
                     keepDirectionUnderLeftClick = moveDir;
                 }
 
+            }
+        }
 
+
+
+
+        else
+        {
+            if (Input.GetKey(KeyCode.Alpha2))
+            {
+                if (enemy != null)
+                {
+                    FaceTarget(enemy.transform.position);
+                }
 
             }
 
-            shooting = 0;
-
-
-
-
-
         }
+
+
+     
 
     }
 }

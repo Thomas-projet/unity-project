@@ -7,11 +7,17 @@ public class Targeting : MonoBehaviour
     Camera cam;
     Enemy enemy = new Enemy();
     int check = 0;
+    public int testy = 6;
 
-    // Start is called before the first frame update
+    public void testyy()
+    {
+        Debug.Log("test" + testy);
+    }
+
     void Start()
     {
-        cam = Camera.main;        
+        cam = Camera.main;
+        
     }
 
     // Update is called once per frame
@@ -23,8 +29,6 @@ public class Targeting : MonoBehaviour
             {
                 enemy.Detargeted();
             }
-
-            
 
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;

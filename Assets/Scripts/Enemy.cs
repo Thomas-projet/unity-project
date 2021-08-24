@@ -7,6 +7,9 @@ public class Enemy : MonoBehaviour
 {
     private Renderer renderer;
     Color OriginalColor;
+    public int health = 10000;
+
+
     private void Start()
     {
         renderer = GetComponentInChildren<Renderer>();
@@ -14,7 +17,7 @@ public class Enemy : MonoBehaviour
     }
 
 
-    public int health = 100;
+
     public void TakeDamage(int damage)
     {
         health -= damage;
