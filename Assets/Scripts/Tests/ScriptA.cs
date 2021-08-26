@@ -8,7 +8,7 @@ public class ScriptA : MonoBehaviour
 
     public void Function1(string name)
     {
-        Debug.Log(Function2(name));
+        //Debug.Log(Function2(name));
     }
 
     public string Function2(string name)

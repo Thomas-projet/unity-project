@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
     [SerializeField]
-    private PlayerManager PM;
+    private GameManager GM;
 
     public CharacterController controller;
     public Transform cam;
@@ -16,39 +16,25 @@ public class PlayerMovement : MonoBehaviour
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
 
-    Vector3 keepDirectionUnderLeftClick = Quaternion.Euler(0f,0, 0f) * Vector3.forward;
-
-    public int cooldownAttack1 = 1;
-    public int cooldownAttack2 = 1;
+    Vector3 moveDir;
+    Vector3 keepDirectionUnderLeftClick = Quaternion.Euler(0f, 0, 0f) * Vector3.forward;
 
     float angle;
-    Vector3 moveDir;
-
-    public bool isAttacking = false;
-
-    Weapon ScriptFromWeapon;
-
-
-    public bool attack1 = false;
-
 
     private void Start()
     {
-        
-        PM = FindObjectOfType<PlayerManager>();
+        GM = FindObjectOfType<GameManager>();
     }
 
-    void FaceTarget(Vector3 enemyPosition)
+    public void FaceTarget()
     {
-        Vector3 direction = (enemyPosition - transform.position).normalized;
+        Vector3 direction = (GM.targetedEnemy.transform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = lookRotation;
     }
 
     public void Update()
     {
-        attack1 = false;
-        //Debug.Log("AAA = " + PlayerManager.instance.AAA);
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
@@ -71,6 +57,8 @@ public class PlayerMovement : MonoBehaviour
 
             else
             {
+                //To look at targeted enemy while attacking : if (Input.GetKey("mouse 1") && GameManager.instance.isNotAttacking == true)
+
                 if (Input.GetKey("mouse 1"))
                 {
                     //if not attacking enemies
@@ -85,38 +73,19 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else
                 {
-                   
-                    
-                    //if attacking
-                    if (Input.GetKey(KeyCode.Alpha2) || Input.GetKey(KeyCode.Alpha3))
+                    if (GameManager.instance.isNotAttacking == true)
                     {
-                        if (PM.enemy != null)
-                        {
-                            FaceTarget(PM.enemy.transform.position);
-                            attack1 = true;
-
-                            //StartCoroutine(focusWhileAttacking());
-                            //StartCoroutine(waiter(cooldownAttack1));
-                        }
-
+                        transform.rotation = Quaternion.Euler(0f, angle, 0f);
                     }
                     else
                     {
-                        if (PlayerManager.instance.AAA == true)
+                        if (GM.targetedEnemy != null)
                         {
-                            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+                            FaceTarget();
                         }
-                        else
-                        {
-                            if (PM.enemy !=null)
-                            {
-                                FaceTarget(PM.enemy.transform.position);
-                            }
-                            
-                        }
-
 
                     }
+
                     controller.Move(moveDir.normalized * speed * Time.deltaTime);
                     keepDirectionUnderLeftClick = moveDir;
 
@@ -124,29 +93,5 @@ public class PlayerMovement : MonoBehaviour
 
             }
         }
-
-
-
-
-        else
-        {
-            if (Input.GetKey(KeyCode.Alpha2) || Input.GetKey(KeyCode.Alpha3))
-            {
-                if (PM.enemy != null)
-                {
-                    FaceTarget(PM.enemy.transform.position);
-                }
-
-            }
-
-        }
-    }
-    IEnumerator focusWhileAttacking()
-    {
-        Debug.Log("focusWhileAttacking");
-        isAttacking = true;
-        yield return new WaitForSeconds(5f);
-        isAttacking = false;
-
     }
 }

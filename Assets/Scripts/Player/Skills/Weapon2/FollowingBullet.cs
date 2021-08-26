@@ -11,21 +11,19 @@ public class FollowingBullet : MonoBehaviour
     public int damage = 40;
 
     [SerializeField]
-    private PlayerManager PM;
+    private GameManager GM;
     [SerializeField]
     private ScriptA scriptA;
 
     public void Start()
     {
-        PM = FindObjectOfType<PlayerManager>();
-        //Debug.Log("test = " + PlayerManager.instance.test);
-       ;
+        GM = FindObjectOfType<GameManager>();
     }
     void Update()
     {
-        if (PM.enemy != null)
+        if (GM.targetedEnemy != null)
         {
-            transform.LookAt(PM.targetInfo.transform.position);
+            transform.LookAt(GM.targetInfo.transform.position);
         }
         
         rb.velocity = transform.forward * speed;
@@ -34,16 +32,14 @@ public class FollowingBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider hitInfo)
     {
-        Debug.Log("HIT "+hitInfo.name);
-        Enemy enemy = hitInfo.GetComponent<Enemy>();
-        if (enemy != null)
+        EnemyManager targetedEnemy = hitInfo.GetComponent<EnemyManager>();
+        if (targetedEnemy != null)
         {
-            enemy.TakeDamage(damage);
+            targetedEnemy.TakeDamage(damage);
         }
 
         if(hitInfo.name != "FollowingBullet(Clone)" && hitInfo.name != "Player")
         {
-            Debug.Log("destroyed ");
             Destroy(gameObject);
         }
 

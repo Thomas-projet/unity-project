@@ -15,16 +15,14 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider hitInfo)
     {
-        //Debug.Log(hitInfo.name);
-        Enemy enemy = hitInfo.GetComponent<Enemy>();
-        if (enemy != null)
+        EnemyManager targetedEnemy = hitInfo.GetComponent<EnemyManager>();
+        if (targetedEnemy != null)
         {
-            enemy.TakeDamage(damage);
+            targetedEnemy.TakeDamage(damage);
         }
 
         if (hitInfo.name != "Bullet(Clone)" && hitInfo.name != "Player")
         {
-            Debug.Log("destroyed ");
             Destroy(gameObject);
         }
 

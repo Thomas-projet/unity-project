@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Patroller : MonoBehaviour
+public class PatrolingEnemy : MonoBehaviour
 {
     public Transform[] waypoints;
     public int speed;

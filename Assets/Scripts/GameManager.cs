@@ -2,22 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     public GameObject player;
     public RaycastHit targetInfo;
     Vector3 keepDirectionUnderLeftClick = Quaternion.Euler(0f, 0, 0f) * Vector3.forward;
     public float castingTime;
+    public Transform ChargePoint;
 
     public int test = 3;
 
     Camera cam;
-    public Enemy enemy = null;
-    bool targetIsAlive = false;
+    public EnemyManager targetedEnemy = null;
 
-    public bool AAA = true;
+    public bool isNotAttacking = true;
 
-    public static PlayerManager instance;
+    public static GameManager instance;
     private void Awake()
     {
         instance = this;
@@ -30,6 +30,11 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKey(KeyCode.Alpha4))
+        {
+            test = 5;
+
+        }
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -37,43 +42,36 @@ public class PlayerManager : MonoBehaviour
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out targetInfo))
             {
-                Debug.Log("From Manager We hit " + targetInfo.collider.name + " " + targetInfo.point);
+                //Debug.Log("From Manager We hit " + targetInfo.collider.name + " " + targetInfo.point);
                 Collider hitInfo = targetInfo.collider;
 
-                if ((hitInfo.GetComponent("Enemy") as Enemy) != null)
+                if ((hitInfo.GetComponent("EnemyManager") as EnemyManager) != null)
                 {
-                    Debug.Log("Enemy");
-                }
-                else
-                {
-                    Debug.Log("Not Enemy");
-                }
+                    EnemyManager newTargetedEnemy = hitInfo.GetComponent<EnemyManager>();
 
-                    if ((hitInfo.GetComponent("Enemy") as Enemy) != null)
-                {
-                    Enemy newEnemy = hitInfo.GetComponent<Enemy>();
-                    if (newEnemy.Targeted() == true)
+                    if (newTargetedEnemy.Targeted() == true)
                     {
-                        if (enemy != null && enemy != newEnemy)
+                        if (targetedEnemy != null && targetedEnemy != newTargetedEnemy)
                         {
-                            enemy.Detargeted();
+                            targetedEnemy.Detargeted();
                         }
 
-                        enemy = newEnemy;
+                        targetedEnemy = newTargetedEnemy;
 
                     }
                     else
                     {
-                        enemy = null;
+                        targetedEnemy = null;
                     }
                 }
                 else
                 {
-                    if (enemy != null)
+                    if (targetedEnemy != null)
                     {
-                        enemy.Detargeted();
+                        targetedEnemy.Detargeted();
                     }
-                    
+                    targetedEnemy = null;
+
                 }
 
 

@@ -34,14 +34,11 @@ public class JumpAndDash : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && _isGrounded)
         {
-            Debug.Log("jump");
             _velocity.y += Mathf.Sqrt(JumpHeight * -2f * Gravity);
-
         }
 
         if (Input.GetKey("h"))
         {
-            Debug.Log("Dash");
             _velocity += Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * Drag.x + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * Drag.z + 1)) / -Time.deltaTime)));
         }
 

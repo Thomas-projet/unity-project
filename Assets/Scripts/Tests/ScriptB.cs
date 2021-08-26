@@ -16,7 +16,7 @@ public class ScriptB : MonoBehaviour
         
         foreach (ScriptA sA in scriptsA)
         {
-            sA.Function1(name);
+            //sA.Function1(name);
         }
         
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAI : MonoBehaviour
+public class FollowingEnemy : MonoBehaviour
 {
     public float lookRadius = 10f;
     public float stopDistance;
@@ -16,7 +16,7 @@ public class EnemyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        target = PlayerManager.instance.player.transform;
+        target = GameManager.instance.player.transform;
         agent = GetComponent<NavMeshAgent>();
         
     }
