@@ -5,7 +5,7 @@ using UnityEngine;
 public class ScriptB : MonoBehaviour
 {
     [SerializeField]
-    private string name;
+    private new string name;
 
     [SerializeField]
     private ScriptA[] scriptsA;

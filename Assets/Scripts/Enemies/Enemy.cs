@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private Renderer renderer;
+    private new Renderer renderer;
+
     Color OriginalColor;
     public int health = 10000;
 
@@ -29,9 +30,10 @@ public class Enemy : MonoBehaviour
         
     }
 
-    public void Targeted()
+    public bool Targeted()
     {
         renderer.material.color = Color.blue;
+        return true;
     }
 
     public void Detargeted()

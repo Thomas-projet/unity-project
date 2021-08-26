@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ScriptA : MonoBehaviour
 {
-    public string name;
+    public new string name;
 
     public void Function1(string name)
     {

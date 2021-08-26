@@ -472,7 +472,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9071738221603109866, guid: 2de746817b6db6e4b93671d4fe19053a, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9071738221603109866, guid: 2de746817b6db6e4b93671d4fe19053a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1499,6 +1499,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1466906325}
+  castingTime: 0
+  test: 3
+  enemy: {fileID: 0}
 --- !u!4 &716760133
 Transform:
   m_ObjectHideFlags: 0
@@ -2014,7 +2017,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.18127817, y: 0.00000002210297, z: -0.0000000026009617, w: 0.9834319}
+  m_LocalRotation: {x: 0.18127817, y: 0.000000010972137, z: -0.0000000030759622, w: 0.9834319}
   m_LocalPosition: {x: 0, y: 7.919344, z: -15.127602}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2121,7 +2124,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1141617350}
-  m_LocalRotation: {x: 0.17524141, y: 0.000000020345444, z: -0.0000000036214036, w: 0.9845255}
+  m_LocalRotation: {x: 0.17524141, y: 0.000000018972134, z: -0.00000000337696, w: 0.9845255}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2426,10 +2429,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 399dcbdfa86757b40a0b67d128d68b53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PM: {fileID: 0}
   controller: {fileID: 1466906328}
   cam: {fileID: 963194228}
   speed: 10
   turnSmoothTime: 0.1
+  cooldownAttack1: 0
+  cooldownAttack2: 0
+  isAttacking: 0
 --- !u!143 &1466906328
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2681,7 +2688,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1896352512}
-  m_LocalRotation: {x: 0.21285379, y: 0.000000008406039, z: -0.0000000018312216, w: 0.9770841}
+  m_LocalRotation: {x: 0.21285379, y: -0.000000008406041, z: 0.000000001831222, w: 0.9770841}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3257,8 +3264,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 713925dac34d82643a044844a8c1c9c1, type: 2}
     - target: {fileID: 9071738221603109865, guid: 2de746817b6db6e4b93671d4fe19053a, type: 3}
-      propertyPath: timeBetweenAttacks
+      propertyPath: castTime
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9071738221603109865, guid: 2de746817b6db6e4b93671d4fe19053a, type: 3}
+      propertyPath: cooldown
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9071738221603109865, guid: 2de746817b6db6e4b93671d4fe19053a, type: 3}
+      propertyPath: timeBetweenAttacks
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9071738221603109866, guid: 2de746817b6db6e4b93671d4fe19053a, type: 3}
       propertyPath: m_RootOrder

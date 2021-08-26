@@ -21,8 +21,10 @@ public class Bullet : MonoBehaviour
         {
             enemy.TakeDamage(damage);
         }
-        if(hitInfo.name!="Bullet(Clone)")
+
+        if (hitInfo.name != "Bullet(Clone)" && hitInfo.name != "Player")
         {
+            Debug.Log("destroyed ");
             Destroy(gameObject);
         }
 
