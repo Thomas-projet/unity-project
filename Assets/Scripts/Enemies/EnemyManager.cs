@@ -8,11 +8,20 @@ public class EnemyManager : MonoBehaviour
     private new Renderer renderer;
     private bool isTargeted = false;
 
+    public int maxHealth = 100;
+    public int currentHealth = 1000;
+    public HealthBar healthBar;
+
     Color OriginalColor;
-    public int health = 10000;
 
     private void Start()
     {
+        currentHealth = maxHealth;
+        if (healthBar != null)
+        {
+            healthBar.SetMaxHealth(maxHealth);
+        }
+
         renderer = GetComponentInChildren<Renderer>();
         OriginalColor = renderer.material.color;
     }
@@ -36,9 +45,13 @@ public class EnemyManager : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
+        currentHealth -= damage;
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(currentHealth);
+        }
 
-        if (health <= 0)
+        if (currentHealth <= 0)
         {
             Die();
         }

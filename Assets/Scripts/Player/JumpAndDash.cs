@@ -8,7 +8,7 @@ public class JumpAndDash : MonoBehaviour
     public float JumpHeight = 2f;
     public float Gravity = -40;
     public float GroundDistance = 0.2f;
-    public LayerMask Ground;
+    public LayerMask Platform;
     public Vector3 Drag = new Vector3(15,0,15);
     public float DashDistance = 0.3f;
 
@@ -26,8 +26,9 @@ public class JumpAndDash : MonoBehaviour
 
     void Update()
     {
-        _isGrounded = Physics.CheckSphere(_groundChecker.position, GroundDistance, Ground, QueryTriggerInteraction.Ignore);
-        if (_isGrounded && _velocity.y < 0)
+
+        _isGrounded = Physics.CheckSphere(_groundChecker.position, GroundDistance, Platform, QueryTriggerInteraction.Ignore);
+        if (_isGrounded && _velocity.y <= 0)
         {
             _velocity.y = 0f;
         }

@@ -10,6 +10,9 @@ public class Weapon1 : MonoBehaviour
     public float castTime = 4;
     public bool isOnCooldown = false;
 
+
+    public float cd = 10;
+
     public void startShooting()
     {
         StartCoroutine(waiter());
@@ -17,6 +20,8 @@ public class Weapon1 : MonoBehaviour
 
     public void ShootBullets()
     {
+        cd -= Time.deltaTime;
+        Debug.Log("cooldown "+ cd);
         if (isOnCooldown == false)
         {
             StartCoroutine(waiter());

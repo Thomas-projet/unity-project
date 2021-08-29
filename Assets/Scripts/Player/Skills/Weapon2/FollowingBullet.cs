@@ -8,7 +8,7 @@ public class FollowingBullet : MonoBehaviour
     public float speed = 20f;
     public float turn;
     public Rigidbody rb;
-    public int damage = 40;
+    public int damage = 10;
 
     [SerializeField]
     private GameManager GM;

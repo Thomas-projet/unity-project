@@ -6,6 +6,12 @@ using UnityEngine.AI;
 
 public class PlayerManager : MonoBehaviour
 {
+    public Animator animator;
+
+    public int maxHealth = 100;
+    public int currentHealth;
+    public HealthBar healthBar;
+
     [SerializeField]
     private GameManager GM;
 
@@ -23,6 +29,9 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
+        animator = GetComponentInChildren<Animator>();
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
         GM = FindObjectOfType<GameManager>();
     }
 
@@ -35,6 +44,13 @@ public class PlayerManager : MonoBehaviour
 
     public void Update()
     {
+        //if (Input.GetKey("mouse 0"))
+        //{
+        //    currentHealth -= 10;
+        //    healthBar.SetHealth(currentHealth);
+        //}
+
+
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
@@ -43,6 +59,7 @@ public class PlayerManager : MonoBehaviour
 
         if (direction.magnitude >= 0.1f)
         {
+            animator.SetBool("isMoving", true);
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
 
@@ -92,6 +109,11 @@ public class PlayerManager : MonoBehaviour
                 }
 
             }
+        }
+        else
+        {
+            animator.SetBool("isMoving", false);
+
         }
     }
 }
