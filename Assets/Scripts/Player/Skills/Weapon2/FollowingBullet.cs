@@ -15,16 +15,20 @@ public class FollowingBullet : MonoBehaviour
     [SerializeField]
     private ScriptA scriptA;
 
+    EnemyManager target;
+
     public void Start()
     {
         GM = FindObjectOfType<GameManager>();
+        target = GM.targetedEnemy;
     }
     void Update()
     {
-        if (GM.targetedEnemy != null)
+        if (target != null)
         {
-            transform.LookAt(GM.targetInfo.transform.position);
+            transform.LookAt(target.transform.position + new Vector3(0,target.transform.lossyScale.y/1.1f,0));
         }
+            
         
         rb.velocity = transform.forward * speed;
 

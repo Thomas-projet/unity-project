@@ -8,8 +8,8 @@ public class EnemyManager : MonoBehaviour
     private new Renderer renderer;
     private bool isTargeted = false;
 
-    public int maxHealth = 100;
-    public int currentHealth = 1000;
+    public int maxHealth = 1000;
+    public int currentHealth;
     public HealthBar healthBar;
 
     Color OriginalColor;

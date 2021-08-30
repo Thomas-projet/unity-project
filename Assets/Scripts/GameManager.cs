@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Photon.MonoBehaviour
 {
     public GameObject player;
     public RaycastHit targetInfo;
@@ -18,9 +18,18 @@ public class GameManager : MonoBehaviour
     public bool isNotAttacking = true;
 
     public static GameManager instance;
+
+
+
+    public new PhotonView photonView;
     private void Awake()
     {
         instance = this;
+
+        if (photonView.isMine)
+        {
+            Debug.Log("BILLYYYYYYYYYYYYYYY");
+        }
     }
 
     private void Start()
@@ -41,10 +50,12 @@ public class GameManager : MonoBehaviour
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out targetInfo))
             {
-                //Debug.Log("From Manager We hit " + targetInfo.collider.name + " " + targetInfo.point);
+                Debug.Log("From Manager We hit " + targetInfo.collider.name + " " + targetInfo.point);
                 Collider hitInfo = targetInfo.collider;
 
-                if ((hitInfo.GetComponent("EnemyManager") as EnemyManager) != null)
+
+
+                    if ((hitInfo.GetComponent("EnemyManager") as EnemyManager) != null)
                 {
                     EnemyManager newTargetedEnemy = hitInfo.GetComponent<EnemyManager>();
 
