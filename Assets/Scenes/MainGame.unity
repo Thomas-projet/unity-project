@@ -3543,7 +3543,7 @@ GameObject:
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: MainCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3607,7 +3607,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.1731129, y: 0.000000015133399, z: -0.000000002377596, w: 0.984902}
+  m_LocalRotation: {x: 0.1731129, y: 0.000000017401405, z: -0.0000000030585865, w: 0.984902}
   m_LocalPosition: {x: 0, y: 7.919344, z: -15.816248}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -3932,7 +3932,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1141617350}
-  m_LocalRotation: {x: 0.16706729, y: 0.000000018575692, z: -0.000000003147629, w: 0.9859455}
+  m_LocalRotation: {x: 0.16706729, y: 0.000000017419842, z: -0.0000000029517717, w: 0.9859455}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5942,7 +5942,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1896352512}
-  m_LocalRotation: {x: 0.20474012, y: -0.000000003869082, z: 8.0929974e-10, w: 0.9788164}
+  m_LocalRotation: {x: 0.20474012, y: -0.00000000386908, z: 8.0929946e-10, w: 0.9788164}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -6573,8 +6573,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 2131164970}
-  m_Follow: {fileID: 2131164970}
+  m_LookAt: {fileID: 0}
+  m_Follow: {fileID: 0}
   m_CommonLens: 1
   m_Lens:
     FieldOfView: 40
@@ -6685,6 +6685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 782d90a87a9ae4743b37b29fdfdf4340, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Tag: Player
 --- !u!1 &2131164963
 GameObject:
   m_ObjectHideFlags: 0
@@ -6700,7 +6701,7 @@ GameObject:
   - component: {fileID: 2131164966}
   - component: {fileID: 2131164965}
   m_Layer: 7
-  m_Name: Player
+  m_Name: Player111
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6767,10 +6768,7 @@ MonoBehaviour:
   animator: {fileID: 248905887}
   maxHealth: 100
   currentHealth: 0
-  healthBar: {fileID: 1699127885}
-  GM: {fileID: 716760132}
   controller: {fileID: 2131164969}
-  cam: {fileID: 963194228}
   speed: 10
   turnSmoothTime: 0.1
 --- !u!143 &2131164969
@@ -7046,7 +7044,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2886000437427889291, guid: 612d8ba8a4395e446add27e9f7ed00ad, type: 3}
       propertyPath: m_Name
-      value: Player
+      value: Player111
+      objectReference: {fileID: 0}
+    - target: {fileID: 2886000437427889291, guid: 612d8ba8a4395e446add27e9f7ed00ad, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 612d8ba8a4395e446add27e9f7ed00ad, type: 3}

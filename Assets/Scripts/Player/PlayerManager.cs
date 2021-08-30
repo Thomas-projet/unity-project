@@ -10,13 +10,16 @@ public class PlayerManager : MonoBehaviour
 
     public int maxHealth = 100;
     public int currentHealth;
-    public HealthBar healthBar;
-
-    [SerializeField]
+    
+    
+    
+    private HealthBar healthBar;
     private GameManager GM;
+    Camera MainCamera;
+    private Transform cam;
 
     public CharacterController controller;
-    public Transform cam;
+
 
     public float speed = 6f;
     public float turnSmoothTime = 0.1f;
@@ -29,10 +32,15 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
+
+        healthBar = FindObjectOfType<HealthBar>();
+        GM = FindObjectOfType<GameManager>();
+        cam = Camera.main.transform;
+
         animator = GetComponentInChildren<Animator>();
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
-        GM = FindObjectOfType<GameManager>();
+        
     }
 
     public void FaceTarget()

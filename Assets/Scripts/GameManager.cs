@@ -19,20 +19,19 @@ public class GameManager : Photon.MonoBehaviour
 
     public static GameManager instance;
 
-
-
     public new PhotonView photonView;
     private void Awake()
     {
         instance = this;
-
         if (photonView.isMine)
         {
             Debug.Log("BILLYYYYYYYYYYYYYYY");
         }
     }
 
-    private void Start()
+
+
+        private void Start()
     {
         cam = Camera.main;
     }
