@@ -7,14 +7,16 @@ public class FollowingEnemy : MonoBehaviour
 {
     public float lookRadius = 10f;
     public float stopDistance;
-
+    SpawnPlayers SP;
     Transform target;
     NavMeshAgent agent;
 
     // Start is called before the first frame update
     void Start()
     {
-        target = GameManager.instance.player.transform;
+        SP = FindObjectOfType<SpawnPlayers>();
+        target = SP.player.transform;
+        //target = GameManager.instance.player.transform;
         agent = GetComponent<NavMeshAgent>();
         
     }
@@ -22,21 +24,26 @@ public class FollowingEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        target = SP.player.transform;
+        Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + target.position);
         float distance = Vector3.Distance(target.position, transform.position);
 
-        if (distance <= lookRadius)
-        {
-            
-            if (distance <= stopDistance)
+            if (distance <= lookRadius)
             {
-                agent.SetDestination(transform.position);
+
+                if (distance <= stopDistance)
+                {
+                    agent.SetDestination(transform.position);
+                }
+                else
+                {
+                    agent.SetDestination(target.position);
+                }
+
             }
-            else
-            {
-                agent.SetDestination(target.position);
-            }
-            
-        }
+        
+
+
     }
 
     void FaceTarget()

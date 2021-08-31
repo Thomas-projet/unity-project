@@ -30,6 +30,8 @@ public class PlayerManager : MonoBehaviour
 
     float angle;
 
+    PhotonView view;
+
     private void Start()
     {
 
@@ -40,7 +42,7 @@ public class PlayerManager : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
-        
+        view = GetComponent<PhotonView>();
     }
 
     public void FaceTarget()
@@ -57,71 +59,76 @@ public class PlayerManager : MonoBehaviour
         //    currentHealth -= 10;
         //    healthBar.SetHealth(currentHealth);
         //}
+        if (view!= null && view.isMine) {
+
+            float horizontal = Input.GetAxisRaw("Horizontal");
+            float vertical = Input.GetAxisRaw("Vertical");
+
+            Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
 
 
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-
-        Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
-
-
-        if (direction.magnitude >= 0.1f)
-        {
-            animator.SetBool("isMoving", true);
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
-            angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-
-            moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-
-
-            if (Input.GetKey("mouse 0"))
+            if (direction.magnitude >= 0.1f)
             {
-                controller.Move(keepDirectionUnderLeftClick.normalized * speed * Time.deltaTime);
+                animator.SetBool("isMoving", true);
+                float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+                angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
 
-            }
+                moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
-            else
-            {
-                //To look at targeted enemy while attacking : if (Input.GetKey("mouse 1") && GameManager.instance.isNotAttacking == true)
 
-                if (Input.GetKey("mouse 1"))
+                if (Input.GetKey("mouse 0"))
                 {
-                    //if not attacking enemies
-                    if (!Input.GetKey(KeyCode.Alpha2) || !Input.GetKey(KeyCode.Alpha3))
-                    {
-                        transform.rotation = Quaternion.Euler(0, cam.eulerAngles.y, 0);
-                    }
-
-                    controller.Move(moveDir.normalized * speed * Time.deltaTime);
-                    keepDirectionUnderLeftClick = moveDir;
+                    controller.Move(keepDirectionUnderLeftClick.normalized * speed * Time.deltaTime);
 
                 }
+
                 else
                 {
-                    if (GameManager.instance.isNotAttacking == true)
+                    //To look at targeted enemy while attacking : if (Input.GetKey("mouse 1") && GameManager.instance.isNotAttacking == true)
+
+                    if (Input.GetKey("mouse 1"))
                     {
-                        transform.rotation = Quaternion.Euler(0f, angle, 0f);
+                        //if not attacking enemies
+                        if (!Input.GetKey(KeyCode.Alpha2) || !Input.GetKey(KeyCode.Alpha3))
+                        {
+                            transform.rotation = Quaternion.Euler(0, cam.eulerAngles.y, 0);
+                        }
+
+                        controller.Move(moveDir.normalized * speed * Time.deltaTime);
+                        keepDirectionUnderLeftClick = moveDir;
+
                     }
                     else
                     {
-                        if (GM.targetedEnemy != null)
+                        if (GameManager.instance.isNotAttacking == true)
                         {
-                            FaceTarget();
+                            transform.rotation = Quaternion.Euler(0f, angle, 0f);
                         }
+                        else
+                        {
+                            if (GM.targetedEnemy != null)
+                            {
+                                FaceTarget();
+                            }
+
+                        }
+
+                        controller.Move(moveDir.normalized * speed * Time.deltaTime);
+                        keepDirectionUnderLeftClick = moveDir;
 
                     }
 
-                    controller.Move(moveDir.normalized * speed * Time.deltaTime);
-                    keepDirectionUnderLeftClick = moveDir;
-
                 }
+            }
+            else
+            {
+                animator.SetBool("isMoving", false);
 
             }
-        }
-        else
-        {
-            animator.SetBool("isMoving", false);
+
 
         }
+
+
     }
 }

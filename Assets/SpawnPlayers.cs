@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpawnPlayers : MonoBehaviour
 {
     public GameObject playerPrefab;
+    public GameObject player;
 
     public float minX;
     public float maxX;
@@ -16,12 +17,13 @@ public class SpawnPlayers : MonoBehaviour
     void Start()
     {
         Vector3 randomPosition = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY), Random.Range(minZ, maxZ));
-        PhotonNetwork.Instantiate(playerPrefab.name, randomPosition, Quaternion.identity, 0);
+        player = PhotonNetwork.Instantiate(playerPrefab.name, randomPosition, Quaternion.identity, 0);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log("PT" + player.transform.position);
     }
 }

@@ -19,14 +19,9 @@ public class GameManager : Photon.MonoBehaviour
 
     public static GameManager instance;
 
-    public new PhotonView photonView;
     private void Awake()
     {
         instance = this;
-        if (photonView.isMine)
-        {
-            Debug.Log("BILLYYYYYYYYYYYYYYY");
-        }
     }
 
 
@@ -34,6 +29,7 @@ public class GameManager : Photon.MonoBehaviour
         private void Start()
     {
         cam = Camera.main;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Update()
