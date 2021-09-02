@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameManager : Photon.MonoBehaviour
 {
-    public GameObject player;
     public RaycastHit targetInfo;
     Vector3 keepDirectionUnderLeftClick = Quaternion.Euler(0f, 0, 0f) * Vector3.forward;
     public float castingTime;
@@ -26,10 +25,9 @@ public class GameManager : Photon.MonoBehaviour
 
 
 
-        private void Start()
+    private void Start()
     {
         cam = Camera.main;
-        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Update()
@@ -50,7 +48,7 @@ public class GameManager : Photon.MonoBehaviour
 
 
 
-                    if ((hitInfo.GetComponent("EnemyManager") as EnemyManager) != null)
+                if ((hitInfo.GetComponent("EnemyManager") as EnemyManager) != null)
                 {
                     EnemyManager newTargetedEnemy = hitInfo.GetComponent<EnemyManager>();
 

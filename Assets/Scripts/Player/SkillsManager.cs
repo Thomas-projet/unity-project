@@ -12,7 +12,7 @@ public class SkillsManager : MonoBehaviour
     Weapon2 ScriptFromWeapon2;
     Charge ScriptCharge;
     Grab ScriptGrab;
-
+    PhotonView view;
     void Start()
     {
         GM = FindObjectOfType<GameManager>();
@@ -27,55 +27,58 @@ public class SkillsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Alpha2))
+        if (view != null && view.isMine)
         {
-            GameManager.instance.isNotAttacking = false;
-            if (GM.targetedEnemy != null)
+            if (Input.GetKey(KeyCode.Alpha2))
             {
+                GameManager.instance.isNotAttacking = false;
+                if (GM.targetedEnemy != null)
+                {
 
-                PM.FaceTarget();
-                ScriptFromWeapon1.ShootBullets();
+                    PM.FaceTarget();
+                    ScriptFromWeapon1.ShootBullets();
+                }
             }
-        }
 
-        else if (Input.GetKey(KeyCode.Alpha3))
-        {
-            
-            if (GM.targetedEnemy != null)
+            else if (Input.GetKey(KeyCode.Alpha3))
             {
-                PM.FaceTarget();
-                ScriptFromWeapon2.ShootFollowingBullets();
 
+                if (GM.targetedEnemy != null)
+                {
+                    PM.FaceTarget();
+                    ScriptFromWeapon2.ShootFollowingBullets();
+
+                }
             }
-        }
 
-        else if (Input.GetKey(KeyCode.Alpha4))
-        {
-            GameManager.instance.isNotAttacking = false;
-            if (GM.targetedEnemy != null)
+            else if (Input.GetKey(KeyCode.Alpha4))
             {
-                PM.FaceTarget();
+                GameManager.instance.isNotAttacking = false;
+                if (GM.targetedEnemy != null)
+                {
+                    PM.FaceTarget();
+                }
+                ScriptCharge.ChargeFunction();
             }
-            ScriptCharge.ChargeFunction();
-        }
 
-        else if (Input.GetKey(KeyCode.Alpha5))
-        {
-            GameManager.instance.isNotAttacking = false;
-            if (GM.targetedEnemy != null)
+            else if (Input.GetKey(KeyCode.Alpha5))
             {
-                //FaceTarget(GM.targetedEnemy.transform.position);
+                GameManager.instance.isNotAttacking = false;
+                if (GM.targetedEnemy != null)
+                {
+                    //FaceTarget(GM.targetedEnemy.transform.position);
 
+                }
             }
-        }
 
-        else if (Input.GetKey(KeyCode.Alpha6))
-        {
-            GameManager.instance.isNotAttacking = false;
-            if (GM.targetedEnemy != null)
+            else if (Input.GetKey(KeyCode.Alpha6))
             {
-                PM.FaceTarget();
-                ScriptGrab.GrabFunction();
+                GameManager.instance.isNotAttacking = false;
+                if (GM.targetedEnemy != null)
+                {
+                    PM.FaceTarget();
+                    ScriptGrab.GrabFunction();
+                }
             }
         }
     }

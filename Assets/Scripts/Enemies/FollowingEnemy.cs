@@ -24,9 +24,11 @@ public class FollowingEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        target = SP.player.transform;
-        Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + target.position);
-        float distance = Vector3.Distance(target.position, transform.position);
+        if( target != null)
+        {
+            target = SP.player.transform;
+            //Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + target.position);
+            float distance = Vector3.Distance(target.position, transform.position);
 
             if (distance <= lookRadius)
             {
@@ -41,6 +43,8 @@ public class FollowingEnemy : MonoBehaviour
                 }
 
             }
+        }
+
         
 
 

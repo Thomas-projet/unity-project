@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Grab : MonoBehaviour
 {
+    private SpawnPlayers SP;
     public void GrabFunction()
     {
-        Transform playerTransform =  GameManager.instance.player.transform;
+        Transform playerTransform =  SP.player.transform;
         Transform enemyTransform = GameManager.instance.targetedEnemy.transform;
 
 

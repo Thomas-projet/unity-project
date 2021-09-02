@@ -11,6 +11,7 @@ public class EnemyManager : MonoBehaviour
     public int maxHealth = 1000;
     public int currentHealth;
     public HealthBar healthBar;
+    private SpawnPlayers SP;
 
     Color OriginalColor;
 
@@ -32,9 +33,9 @@ public class EnemyManager : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Alpha5))
             {
-                if(Vector3.Distance(GameManager.instance.player.transform.position, transform.position)<5)
+                if(Vector3.Distance(SP.player.transform.position, transform.position)<5)
                 {
-                    transform.LookAt(GameManager.instance.player.transform.position);
+                    transform.LookAt(SP.player.transform.position);
                     transform.position = GameManager.instance.ChargePoint.position;
                 }
 

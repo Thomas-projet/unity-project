@@ -30,7 +30,9 @@ public class PlayerManager : MonoBehaviour
 
     float angle;
 
+
     PhotonView view;
+
 
     private void Start()
     {
@@ -54,6 +56,11 @@ public class PlayerManager : MonoBehaviour
 
     public void Update()
     {
+
+
+
+
+
         //if (Input.GetKey("mouse 0"))
         //{
         //    currentHealth -= 10;
