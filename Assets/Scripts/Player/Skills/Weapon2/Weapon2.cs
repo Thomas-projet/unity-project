@@ -9,8 +9,31 @@ public class Weapon2 : MonoBehaviour
 
     //public float cooldownTime = 5f;
     public bool isOnCooldown = false;
+    public float cooldownTime = 5.0f;
+    public float cooldownTimer = 0.0f;
+
 
     public float castTime = 1;
+
+
+    private void Update()
+    {
+        if (isOnCooldown)
+        {
+            ApplyCooldown();
+        }
+
+    }
+    void ApplyCooldown()
+    {
+        cooldownTimer -= Time.deltaTime;
+
+        if (cooldownTimer < 0.0f)
+        {
+            isOnCooldown = false;
+        }
+    }
+
     public void ShootFollowingBullets()
     {
         if (isOnCooldown == false)
@@ -22,23 +45,38 @@ public class Weapon2 : MonoBehaviour
         }
     }
 
-    void Shoot()
+    public void Shoot()
     {
-        Instantiate(bullet, firepoint.position, firepoint.rotation);
+        if (isOnCooldown)
+        {
+            // user has clicked spell while in use
+        }
+        else
+        {
+            isOnCooldown = true;
+            StartCoroutine(waiter());
+            
+            cooldownTimer = cooldownTime;
+        }
+            
 
     }
 
     IEnumerator waiter()
     {
+        GameManager.instance.isNotAttacking = false;
         for (int i = 0; i < 5; i++)
         {
-            if (GameManager.instance.test==3)
+            if (GameManager.instance.test == 3)
             {
-                Shoot();
+                Instantiate(bullet, firepoint.position, firepoint.rotation);
             }
 
-            yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.5f);
+
+            
         }
+        GameManager.instance.isNotAttacking = true;
     }
 
     IEnumerator cooldown()
@@ -46,7 +84,7 @@ public class Weapon2 : MonoBehaviour
         GameManager.instance.isNotAttacking = false;
         isOnCooldown = true;
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5.0f);
         isOnCooldown = false;
         GameManager.instance.isNotAttacking = true;
 

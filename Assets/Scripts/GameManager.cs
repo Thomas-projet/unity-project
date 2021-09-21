@@ -18,6 +18,10 @@ public class GameManager : Photon.MonoBehaviour
 
     public static GameManager instance;
 
+    public GameObject skillA;
+
+    public LayerMask enemyLayerMask;
+
     private void Awake()
     {
         instance = this;
@@ -27,6 +31,8 @@ public class GameManager : Photon.MonoBehaviour
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = true;
         cam = Camera.main;
     }
 
@@ -40,8 +46,9 @@ public class GameManager : Photon.MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            RaycastHit targetInfo;
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out targetInfo))
+            if (Physics.Raycast(ray, out targetInfo,100f, enemyLayerMask))
             {
                 Debug.Log("From Manager We hit " + targetInfo.collider.name + " " + targetInfo.point);
                 Collider hitInfo = targetInfo.collider;
@@ -79,6 +86,10 @@ public class GameManager : Photon.MonoBehaviour
 
 
 
+            }
+            else
+            {
+                Debug.Log("didnt hit");
             }
 
         }

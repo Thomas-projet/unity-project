@@ -26,7 +26,8 @@ public class CamMove : MonoBehaviour {
 
     public float GetAxisCustom(string axisName){
         if(axisName == "Mouse X"){
-            if (Input.GetMouseButton(1) || Input.GetMouseButton(0))
+            //if (Input.GetMouseButton(1) || Input.GetMouseButton(0))
+            if(true)
             {
                 return -UnityEngine.Input.GetAxis("Mouse X");
             }
@@ -34,7 +35,9 @@ public class CamMove : MonoBehaviour {
          
         }
         else if (axisName == "Mouse Y"){
-            if (Input.GetMouseButton(1) ||  Input.GetMouseButton(0)){
+            //if (Input.GetMouseButton(1) ||  Input.GetMouseButton(0))
+            if(true)
+            {
                 return -UnityEngine.Input.GetAxis("Mouse Y");
             } else{
                 return 0;

@@ -13,6 +13,11 @@ public class SkillsManager : MonoBehaviour
     Charge ScriptCharge;
     Grab ScriptGrab;
     PhotonView view;
+
+    GameObject test;
+    SpellCooldown ScriptSkillA;
+
+
     void Start()
     {
         GM = FindObjectOfType<GameManager>();
@@ -22,11 +27,19 @@ public class SkillsManager : MonoBehaviour
         ScriptFromWeapon2 = FindObjectOfType<Weapon2>();
         ScriptCharge = FindObjectOfType<Charge>();
         ScriptGrab = FindObjectOfType<Grab>();
+
+        test = GameObject.Find("skillA");
+        ScriptSkillA = GM.skillA.GetComponent<SpellCooldown>();
+        ScriptSkillA.cooldownTime = 5.0f;
+
+        view = GetComponent<PhotonView>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+
         if (view != null && view.isMine)
         {
             if (Input.GetKey(KeyCode.Alpha2))
@@ -45,8 +58,13 @@ public class SkillsManager : MonoBehaviour
 
                 if (GM.targetedEnemy != null)
                 {
-                    PM.FaceTarget();
-                    ScriptFromWeapon2.ShootFollowingBullets();
+                    ScriptSkillA.UseSpell();
+                    if (!ScriptFromWeapon2.isOnCooldown)
+                    {
+                       PM.FaceTarget();
+                    }
+                    
+                    ScriptFromWeapon2.Shoot();
 
                 }
             }
