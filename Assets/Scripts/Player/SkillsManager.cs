@@ -8,6 +8,8 @@ public class SkillsManager : MonoBehaviour
     private GameManager GM;
     private PlayerManager PM;
 
+    private Animator animator;
+
     Weapon1 ScriptFromWeapon1;
     Weapon2 ScriptFromWeapon2;
     Charge ScriptCharge;
@@ -22,6 +24,8 @@ public class SkillsManager : MonoBehaviour
     {
         GM = FindObjectOfType<GameManager>();
         PM = FindObjectOfType<PlayerManager>();
+
+        animator = GetComponentInChildren<Animator>();
 
         ScriptFromWeapon1 = FindObjectOfType<Weapon1>();
         ScriptFromWeapon2 = FindObjectOfType<Weapon2>();
@@ -42,6 +46,18 @@ public class SkillsManager : MonoBehaviour
 
         if (view != null && view.isMine)
         {
+
+            if (Input.GetKey(KeyCode.Alpha8))
+            {
+                animator.SetBool("attacking", true);
+            }
+            else
+            {
+                animator.SetBool("attacking", false);
+            }
+
+
+
             if (Input.GetKey(KeyCode.Alpha2))
             {
                 GameManager.instance.isNotAttacking = false;
@@ -98,6 +114,7 @@ public class SkillsManager : MonoBehaviour
                     ScriptGrab.GrabFunction();
                 }
             }
+
         }
     }
 }

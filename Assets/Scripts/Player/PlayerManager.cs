@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class PlayerManager : MonoBehaviour
 {
-    public Animator animator;
+    private Animator animator;
 
     public int maxHealth = 100;
     public int currentHealth;
