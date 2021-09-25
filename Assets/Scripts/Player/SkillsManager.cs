@@ -19,9 +19,19 @@ public class SkillsManager : MonoBehaviour
     GameObject test;
     SpellCooldown ScriptSkillA;
 
+    private Transform attackPoint;
+    public float attackRange = 0.5f;
+    public LayerMask enemyLayer;
+
+    //TESTS
+    private int testy = 0;
+    /// 
+
 
     void Start()
     {
+        attackPoint = transform.GetChild(1);
+
         GM = FindObjectOfType<GameManager>();
         PM = FindObjectOfType<PlayerManager>();
 
@@ -37,6 +47,9 @@ public class SkillsManager : MonoBehaviour
         ScriptSkillA.cooldownTime = 5.0f;
 
         view = GetComponent<PhotonView>();
+
+
+        
     }
 
     // Update is called once per frame
@@ -50,6 +63,19 @@ public class SkillsManager : MonoBehaviour
             if (Input.GetKey(KeyCode.Alpha8))
             {
                 animator.SetBool("attacking", true);
+                Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
+
+                foreach (Collider enemy in hitEnemies)
+                {
+                    //Debug.Log("We hit " + enemy.name);
+                    if(testy==0)
+                    {
+                        EnemyManager test = enemy.GetComponent<EnemyManager>();
+                        test.TakeDamage(5);
+                        testy = 1;
+                    }
+
+                }
             }
             else
             {
@@ -116,5 +142,12 @@ public class SkillsManager : MonoBehaviour
             }
 
         }
+    }
+    private void OnDrawGizmosSelected()
+    {
+        if (transform.GetChild(1) == null)
+            return;
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.GetChild(1).position, attackRange);
     }
 }

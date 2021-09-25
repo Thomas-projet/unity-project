@@ -8,8 +8,8 @@ public class EnemyManager : MonoBehaviour
     private new Renderer renderer;
     private bool isTargeted = false;
 
-    public int maxHealth = 1000;
-    public int currentHealth;
+    private int maxHealth = 20;
+    private int currentHealth;
     public HealthBar healthBar;
     private SpawnPlayers SP;
 
@@ -46,6 +46,7 @@ public class EnemyManager : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        Debug.Log("TakeDamage");
         currentHealth -= damage;
         if (healthBar != null)
         {
