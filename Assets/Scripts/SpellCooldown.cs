@@ -27,16 +27,18 @@ public class SpellCooldown : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(test))
-        {
-            UseSpell();
-        }
+        //if(Input.GetKeyDown(test))
+        //{
+        //    UseSpell();
+        //}
         if (isCooldown)
         {
             ApplyCooldown();
         }
 
     }
+
+
     void ApplyCooldown()
     {
         cooldownTimer -= Time.deltaTime;
@@ -57,6 +59,7 @@ public class SpellCooldown : MonoBehaviour
 
     public void UseSpell()
     {
+
         if (isCooldown)
         {
             // user has clicked spell while in use
