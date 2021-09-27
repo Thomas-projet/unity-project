@@ -10,9 +10,9 @@ public class SpellCooldown : MonoBehaviour
     [SerializeField]
     private Text textCooldown;
 
-    private bool isCooldown = false;
-    public float cooldownTime = 10.0f;
-    private float cooldownTimer = 0.0f;
+    public bool isCooldown = false;
+    public float cooldownTime = 2.0f;
+    public float cooldownTimer = 0.0f;
     public KeyCode test = KeyCode.K;
     public string youhou = "youhou";
 

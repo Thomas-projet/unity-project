@@ -22,15 +22,15 @@ public class SkillsManager : MonoBehaviour
     SpellCooldown ScriptSkillA;
 
     public GameObject skill1;
-    SpellCooldown ScriptSkill1;
 
-    private Transform attackPoint;
-    public float attackRange = 0.5f;
     public LayerMask enemyLayer;
 
     //TESTS
     private int testy = 0;
-    /// 
+
+    //Skills CDs
+    private float skill1CD = 3f;
+
 
 
     void Start()
@@ -41,7 +41,12 @@ public class SkillsManager : MonoBehaviour
 
         animator = GetComponentInChildren<Animator>();
 
+        //Skill 1
         ScriptFromSkill1 = FindObjectOfType<Skill1>();
+
+        //Skill 2
+
+        //
         ScriptFromWeapon1 = FindObjectOfType<Weapon1>();
         ScriptFromWeapon2 = FindObjectOfType<Weapon2>();
         ScriptCharge = FindObjectOfType<Charge>();
@@ -63,46 +68,56 @@ public class SkillsManager : MonoBehaviour
 
         if (view != null && view.isMine)
         {
-            animator.SetBool("attacking", false);
+            //animator.SetBool("attacking", false);
+
             if (Input.GetKey(KeyCode.Alpha9))
             {
-                Debug.Log(!ScriptFromSkill1.isCooldown);
-                if (!ScriptFromSkill1.isCooldown)
+                IS.sc.cooldownTime = skill1CD;
+
+                
+                if (!IS.sc.isCooldown)
                 {
+                    Debug.Log("NTM");
+                    //yourAnimator.SetTrigger("ExampleTrigger");
+                    animator.Play("Great Sword Slash 0");
+                    //animator.SetBool("attacking", true);
+
+
+                    IS.sc.UseSpell();
                     //IS.skill1.GetComponent<SpellCooldown>().UseSpell();
                     //SpellCooldown SpellCooldownFromSkill1 = IS.skill1.GetComponent<SpellCooldown>();
                     //SpellCooldownFromSkill1.UseSpell();
-                    animator.SetBool("attacking", true);
+                    
                     //ScriptFromSkill1.UseSpell();
                 }
 
             }
-            else
-            {
-                animator.SetBool("attacking", false);
-            }
+            //else
+            //{
+            //    animator.SetBool("attacking", false);
+            //}
 
-            if (Input.GetKey(KeyCode.Alpha8))
-            {
-                //animator.SetBool("attacking", true);
-                Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
+            //if (Input.GetKey(KeyCode.Alpha8))
+            //{
+            //    //animator.SetBool("attacking", true);
+            //    Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
 
-                foreach (Collider enemy in hitEnemies)
-                {
-                    //Debug.Log("We hit " + enemy.name);
-                    if(testy==0)
-                    {
-                        EnemyManager test = enemy.GetComponent<EnemyManager>();
-                        test.TakeDamage(5);
-                        testy = 1;
-                    }
+            //    foreach (Collider enemy in hitEnemies)
+            //    {
+            //        //Debug.Log("We hit " + enemy.name);
+            //        if(testy==0)
+            //        {
+            //            EnemyManager test = enemy.GetComponent<EnemyManager>();
+            //            test.TakeDamage(5);
+            //            testy = 1;
+            //        }
 
-                }
-            }
-            else
-            {
-                //animator.SetBool("attacking", false);
-            }
+            //    }
+            //}
+            //else
+            //{
+            //    //animator.SetBool("attacking", false);
+            //}
 
 
 
@@ -164,13 +179,6 @@ public class SkillsManager : MonoBehaviour
             }
 
         }
-    }
-    private void OnDrawGizmosSelected()
-    {
-        if (transform.GetChild(1) == null)
-            return;
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.GetChild(1).position, attackRange);
     }
 
     public void TEST()
