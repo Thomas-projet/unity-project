@@ -25,7 +25,7 @@ public class PlayerManager : MonoBehaviour
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
 
-    Vector3 moveDir;
+    public Vector3 moveDir;
     Vector3 keepDirectionUnderLeftClick = Quaternion.Euler(0f, 0, 0f) * Vector3.forward;
 
     float angle;

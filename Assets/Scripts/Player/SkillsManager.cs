@@ -13,6 +13,9 @@ public class SkillsManager : MonoBehaviour
 
     Skill1 ScriptFromSkill1;
     Skill2 ScriptFromSkill2;
+    Skill3 ScriptFromSkill3;
+    Skill4 ScriptFromSkill4;
+
     Weapon1 ScriptFromWeapon1;
     Weapon2 ScriptFromWeapon2;
     Charge ScriptCharge;
@@ -53,6 +56,12 @@ public class SkillsManager : MonoBehaviour
         //Skill 2
         ScriptFromSkill2 = FindObjectOfType<Skill2>();
 
+        //Skill 3
+        ScriptFromSkill3 = FindObjectOfType<Skill3>();
+
+        //Skill 4
+        ScriptFromSkill4 = FindObjectOfType<Skill4>();
+
         //
         ScriptFromWeapon1 = FindObjectOfType<Weapon1>();
         ScriptFromWeapon2 = FindObjectOfType<Weapon2>();
@@ -66,30 +75,45 @@ public class SkillsManager : MonoBehaviour
         view = GetComponent<PhotonView>();
 
 
-        
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
-    {        
+    {
 
         if (view != null && view.isMine)
         {
-            //Skill1
-            if (Input.GetKey(KeyCode.Alpha7))
+            
+            //Skill 4
+            if (Input.GetKey("n"))
             {
-                animator.SetBool("smash", true);
+                ScriptFromSkill4.UseSpellFromSkill4();
             }
 
-            //Skill2
+            //Skill 3
+            if (Input.GetKey("m"))
+            {
+                    ScriptFromSkill3.UseSpellFromSkill3();
+            }
+
+            //Skill 2
             if (Input.GetKey(KeyCode.Alpha8))
             {
                 animator.SetBool("spin", true);
             }
 
-                if (Input.GetKey(KeyCode.Alpha9))
+            //Skill 1
+            if (Input.GetKey(KeyCode.Alpha7))
             {
-                
+                animator.SetBool("smash", true);
+            }
+
+
+
+            if (Input.GetKey(KeyCode.Alpha9))
+            {
+
                 if (!IS.sc.isCooldown)
                 {
                     //animator.Play("Great Sword Slash 0");
@@ -130,9 +154,9 @@ public class SkillsManager : MonoBehaviour
                     ScriptSkillA.UseSpell();
                     if (!ScriptFromWeapon2.isOnCooldown)
                     {
-                       PM.FaceTarget();
+                        PM.FaceTarget();
                     }
-                    
+
                     ScriptFromWeapon2.Shoot();
 
                 }
@@ -184,13 +208,13 @@ public class SkillsManager : MonoBehaviour
     {
         Debug.Log("SpinEvent" + spinCount);
         spinCount++;
-        if(spinCount==3)
+        if (spinCount == 3)
         {
             animator.SetBool("spin", false);
-            spinCount=0;
+            spinCount = 0;
         }
-        
-        
+
+
         //
         //animator.SetTrigger("stopTrigger");
     }

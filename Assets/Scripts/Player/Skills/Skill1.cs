@@ -6,7 +6,6 @@ public class Skill1 : MonoBehaviour
 {
     public Transform attackPoint;
     private float attackRange = 2.5f;
-
     public LayerMask enemyLayer;
 
 
