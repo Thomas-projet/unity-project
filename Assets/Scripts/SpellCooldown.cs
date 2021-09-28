@@ -13,8 +13,6 @@ public class SpellCooldown : MonoBehaviour
     public bool isCooldown = false;
     public float cooldownTime = 2.0f;
     public float cooldownTimer = 0.0f;
-    public KeyCode test = KeyCode.K;
-    public string youhou = "youhou";
 
     // Start is called before the first frame update
     void Start()
@@ -27,15 +25,10 @@ public class SpellCooldown : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if(Input.GetKeyDown(test))
-        //{
-        //    UseSpell();
-        //}
         if (isCooldown)
         {
             ApplyCooldown();
         }
-
     }
 
 

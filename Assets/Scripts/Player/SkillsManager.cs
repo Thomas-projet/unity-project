@@ -12,6 +12,7 @@ public class SkillsManager : MonoBehaviour
     private Animator animator;
 
     Skill1 ScriptFromSkill1;
+    Skill2 ScriptFromSkill2;
     Weapon1 ScriptFromWeapon1;
     Weapon2 ScriptFromWeapon2;
     Charge ScriptCharge;
@@ -29,7 +30,12 @@ public class SkillsManager : MonoBehaviour
     private int testy = 0;
 
     //Skills CDs
-    private float skill1CD = 3f;
+    private float skill1CD = 5f;
+
+    public bool attackingBool = false;
+
+
+    private int spinCount = 0;
 
 
 
@@ -45,6 +51,7 @@ public class SkillsManager : MonoBehaviour
         ScriptFromSkill1 = FindObjectOfType<Skill1>();
 
         //Skill 2
+        ScriptFromSkill2 = FindObjectOfType<Skill2>();
 
         //
         ScriptFromWeapon1 = FindObjectOfType<Weapon1>();
@@ -63,66 +70,49 @@ public class SkillsManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {        
 
         if (view != null && view.isMine)
         {
-            //animator.SetBool("attacking", false);
-
-            if (Input.GetKey(KeyCode.Alpha9))
+            //Skill1
+            if (Input.GetKey(KeyCode.Alpha7))
             {
-                IS.sc.cooldownTime = skill1CD;
+                animator.SetBool("smash", true);
+            }
 
+            //Skill2
+            if (Input.GetKey(KeyCode.Alpha8))
+            {
+                animator.SetBool("spin", true);
+            }
+
+                if (Input.GetKey(KeyCode.Alpha9))
+            {
                 
                 if (!IS.sc.isCooldown)
                 {
-                    Debug.Log("NTM");
-                    //yourAnimator.SetTrigger("ExampleTrigger");
-                    animator.Play("Great Sword Slash 0");
+                    //animator.Play("Great Sword Slash 0");
+                    IS.sc.UseSpell();
                     //animator.SetBool("attacking", true);
 
+                    attackingBool = true;
+                    animator.SetBool("attacking", attackingBool);
 
-                    IS.sc.UseSpell();
-                    //IS.skill1.GetComponent<SpellCooldown>().UseSpell();
-                    //SpellCooldown SpellCooldownFromSkill1 = IS.skill1.GetComponent<SpellCooldown>();
-                    //SpellCooldownFromSkill1.UseSpell();
-                    
-                    //ScriptFromSkill1.UseSpell();
+                    Debug.Log("HEY");
+                    //
+                    //animator.SetTrigger("attackTrigger");
                 }
-
             }
-            //else
-            //{
-            //    animator.SetBool("attacking", false);
-            //}
-
-            //if (Input.GetKey(KeyCode.Alpha8))
-            //{
-            //    //animator.SetBool("attacking", true);
-            //    Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
-
-            //    foreach (Collider enemy in hitEnemies)
-            //    {
-            //        //Debug.Log("We hit " + enemy.name);
-            //        if(testy==0)
-            //        {
-            //            EnemyManager test = enemy.GetComponent<EnemyManager>();
-            //            test.TakeDamage(5);
-            //            testy = 1;
-            //        }
-
-            //    }
-            //}
-            //else
-            //{
-            //    //animator.SetBool("attacking", false);
-            //}
 
 
 
             if (Input.GetKey(KeyCode.Alpha2))
             {
+                //
+                //animator.SetBool("attacking", true);
+                animator.SetTrigger("stopTrigger");
+
                 GameManager.instance.isNotAttacking = false;
                 if (GM.targetedEnemy != null)
                 {
@@ -183,11 +173,29 @@ public class SkillsManager : MonoBehaviour
 
     public void TEST()
     {
-        Debug.Log("skill manager");
+        Debug.Log("TEST");
+        attackingBool = false;
+        animator.SetBool("attacking", attackingBool);
+        //
+        //animator.SetTrigger("stopTrigger");
     }
 
-    public void Skill1Function()
+    public void SpinEvent()
     {
-        ScriptFromSkill1.UseSpell();
+        Debug.Log("SpinEvent" + spinCount);
+        spinCount++;
+        if(spinCount==3)
+        {
+            animator.SetBool("spin", false);
+            spinCount=0;
+        }
+        
+        
+        //
+        //animator.SetTrigger("stopTrigger");
     }
+
+
+
+
 }

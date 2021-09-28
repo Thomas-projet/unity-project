@@ -4,50 +4,14 @@ using UnityEngine;
 
 public class Skill1 : MonoBehaviour
 {
-    public bool isCooldown = false;
-    public float cooldownTime;
-    private float cooldownTimer = 0.0f;
-
     public Transform attackPoint;
     private float attackRange = 2.5f;
 
     public LayerMask enemyLayer;
 
 
-    //void Update()
-    //{
-    //    if (isCooldown)
-    //    {
-    //        ApplyCooldown();
-    //    }
-
-    //}
-    //void ApplyCooldown()
-    //{
-    //    cooldownTimer -= Time.deltaTime;
-
-    //    if (cooldownTimer < 0.0f)
-    //    {
-    //        isCooldown = false;
-
-    //    }
-    //}
-
-
-    public void UseSpell()
+    public void UseSpellFromSkill1()
     {
-
-        //if (isCooldown)
-        //{
-        //    // user has clicked spell while in use
-        //}
-        //else
-        //{
-        //isCooldown = true;
-        //cooldownTimer = cooldownTime;
-
-        //spell behavior
-
             Debug.Log("skill 1 activated");
             Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
 
@@ -57,10 +21,6 @@ public class Skill1 : MonoBehaviour
                 EnemyManager enemyy = enemy.GetComponent<EnemyManager>();
                 enemyy.TakeDamage(5);
             }
-
-
-        //}
-
     }
 
     private void OnDrawGizmosSelected()

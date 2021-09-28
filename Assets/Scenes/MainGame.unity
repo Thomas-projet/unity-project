@@ -1224,9 +1224,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imageCooldown: {fileID: 1894173704}
   textCooldown: {fileID: 1025518311}
+  isCooldown: 0
   cooldownTime: 10
-  test: 107
-  youhou: youhou
+  cooldownTimer: 0
 --- !u!114 &529384145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1334,7 +1334,7 @@ GameObject:
   - component: {fileID: 532759307}
   - component: {fileID: 532759306}
   - component: {fileID: 532759305}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1487,9 +1487,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imageCooldown: {fileID: 1864559593}
   textCooldown: {fileID: 1228199690}
+  isCooldown: 0
   cooldownTime: 10
-  test: 107
-  youhou: youhou
+  cooldownTimer: 0
 --- !u!114 &533294391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2100,9 +2100,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imageCooldown: {fileID: 2057321680}
   textCooldown: {fileID: 228110954}
+  isCooldown: 0
   cooldownTime: 10
-  test: 107
-  youhou: youhou
+  cooldownTimer: 0
 --- !u!114 &796145270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3888,9 +3888,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imageCooldown: {fileID: 326757914}
   textCooldown: {fileID: 788978773}
+  isCooldown: 0
   cooldownTime: 10
-  test: 107
-  youhou: youhou
+  cooldownTimer: 0
 --- !u!114 &1507116978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5003,6 +5003,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skill1Prefab: {fileID: 1063922827997897802, guid: 0cc1f8bc883864349a3b878c4deaa4d8, type: 3}
   skill1: {fileID: 1063922827997897802, guid: 0cc1f8bc883864349a3b878c4deaa4d8, type: 3}
+  sc: {fileID: 0}
 --- !u!1 &2102750348
 GameObject:
   m_ObjectHideFlags: 0
