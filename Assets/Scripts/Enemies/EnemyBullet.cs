@@ -23,7 +23,7 @@ public class EnemyBullet : MonoBehaviour
         SP = FindObjectOfType<SpawnPlayers>();
         target = SP.player.transform;
     }
-    void Update()
+    void FixedUpdate()
     {
         if (target != null)
         {
@@ -33,6 +33,12 @@ public class EnemyBullet : MonoBehaviour
 
         rb.velocity = transform.forward * speed;
 
+    }
+
+    public void DestroyBullet()
+    {
+        Debug.Log("DestroyBullet");
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider hitInfo)

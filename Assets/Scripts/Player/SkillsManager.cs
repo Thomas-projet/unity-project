@@ -15,6 +15,7 @@ public class SkillsManager : MonoBehaviour
     Skill2 ScriptFromSkill2;
     Skill3 ScriptFromSkill3;
     Skill4 ScriptFromSkill4;
+    Skill5 ScriptFromSkill5;
 
     Weapon1 ScriptFromWeapon1;
     Weapon2 ScriptFromWeapon2;
@@ -26,6 +27,7 @@ public class SkillsManager : MonoBehaviour
     SpellCooldown ScriptSkillA;
 
     public GameObject skill1;
+    public GameObject antiProjectiles;
 
     public LayerMask enemyLayer;
 
@@ -39,6 +41,8 @@ public class SkillsManager : MonoBehaviour
 
 
     private int spinCount = 0;
+
+
 
 
 
@@ -62,6 +66,9 @@ public class SkillsManager : MonoBehaviour
         //Skill 4
         ScriptFromSkill4 = FindObjectOfType<Skill4>();
 
+        //Skill 5
+        ScriptFromSkill5 = FindObjectOfType<Skill5>();
+
         //
         ScriptFromWeapon1 = FindObjectOfType<Weapon1>();
         ScriptFromWeapon2 = FindObjectOfType<Weapon2>();
@@ -84,7 +91,18 @@ public class SkillsManager : MonoBehaviour
 
         if (view != null && view.isMine)
         {
-            
+            //Skill 5
+            if (Input.GetKey("b"))
+            {
+                antiProjectiles.SetActive(true);
+                //ScriptFromSkill5.UseSpellFromSkill5();
+            }
+            else
+            {
+                antiProjectiles.SetActive(false);
+            }
+
+
             //Skill 4
             if (Input.GetKey("n"))
             {
@@ -94,7 +112,7 @@ public class SkillsManager : MonoBehaviour
             //Skill 3
             if (Input.GetKey("m"))
             {
-                    ScriptFromSkill3.UseSpellFromSkill3();
+                ScriptFromSkill3.UseSpellFromSkill3();
             }
 
             //Skill 2

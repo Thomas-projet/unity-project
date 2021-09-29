@@ -11,6 +11,10 @@ public class Pewpew : MonoBehaviour
     Transform target;
     NavMeshAgent agent;
 
+    public bool isCooldown = false;
+    private float cooldownTime = 2.0f;
+    public float cooldownTimer = 0.0f;
+
     public GameObject bullet;
     public Transform firepoint;
 
@@ -26,6 +30,49 @@ public class Pewpew : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+
+        
+        if (isCooldown)
+        {
+            ApplyCooldown();
+        }
+        else
+        {
+            UseSpell();
+
+        }
+
+
+
+    }
+
+    void ApplyCooldown()
+    {
+        cooldownTimer -= Time.deltaTime;
+        if (cooldownTimer < 0.0f)
+        {
+            isCooldown = false;
+        }
+    }
+
+    public void UseSpell()
+    {
+        if (isCooldown)
+        {
+            // user has clicked spell while in use
+        }
+        else
+        {
+            isCooldown = true;
+            cooldownTimer = cooldownTime;
+            Shoot();
+        }
+
+    }
+
+
+    void Shoot()
     {
         if (target != null)
         {
@@ -50,9 +97,6 @@ public class Pewpew : MonoBehaviour
 
             }
         }
-
-
-
 
     }
 

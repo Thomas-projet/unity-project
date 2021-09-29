@@ -8,10 +8,6 @@ public class FireBall : MonoBehaviour
     public int damage = 10;
     public Rigidbody rb;
 
-    public float attackRangeX = 2.5f;
-    public float attackRangeY = 2.5f;
-    public float attackRangeZ = 2.5f;
-
     public LayerMask enemyLayer;
 
     public Collider[] enemiesThatWashit = null;

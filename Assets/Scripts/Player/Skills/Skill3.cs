@@ -18,6 +18,14 @@ public class Skill3 : MonoBehaviour
     private float chargeCatchRange = 2.5f;
     public LayerMask enemyLayer;
 
+    Collider chargedEnemy = null;
+
+
+
+
+
+    int count = 0;
+
     private void Start()
     {
         PM = FindObjectOfType<PlayerManager>();
@@ -42,6 +50,8 @@ public class Skill3 : MonoBehaviour
         else
         {
             animator.SetBool("dash", false);
+            count = 0;
+            chargedEnemy = null;
         }
     }
 
@@ -78,14 +88,29 @@ public class Skill3 : MonoBehaviour
 
     public void CatchEnemy()
     {
-        Collider[] hitEnemies = Physics.OverlapSphere(chargePoint.position, chargeCatchRange, enemyLayer);
+        Collider[] hitEnemy = Physics.OverlapSphere(chargePoint.position, chargeCatchRange, enemyLayer);
 
-        foreach (Collider enemy in hitEnemies)
+        foreach (Collider enemy in hitEnemy)
         {
-            Debug.Log("Skill 3 catch " + enemy.name);
-            EnemyManager enemyy = enemy.GetComponent<EnemyManager>();
-            enemyy.transform.position = chargePoint.position;
+            if (count==0)
+            {
+                if(enemy != null)
+                {
+                    chargedEnemy = enemy;
+                    count++;
+                }
+
+            }
+
+            //Debug.Log("Skill 3 catch " + enemy.name);
+            //EnemyManager enemyy = enemy.GetComponent<EnemyManager>();
+            //enemyy.transform.position = chargePoint.position;
         }
+        if (chargedEnemy!= null)
+        {
+            chargedEnemy.transform.position = chargePoint.position;
+        }
+        
     }
 
 

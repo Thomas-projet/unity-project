@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3089649191398084971}
   - component: {fileID: 3089649191398084973}
   - component: {fileID: -5548513030388398984}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: EnemyBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
