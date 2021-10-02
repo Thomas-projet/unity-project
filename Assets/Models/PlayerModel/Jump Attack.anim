@@ -14413,7 +14413,7 @@ AnimationClip:
     m_Level: 0
     m_CycleOffset: 0
     m_HasAdditiveReferencePose: 0
-    m_LoopTime: 1
+    m_LoopTime: 0
     m_LoopBlend: 1
     m_LoopBlendOrientation: 0
     m_LoopBlendPositionY: 0
@@ -111529,6 +111529,13 @@ AnimationClip:
   m_Events:
   - time: 1.6666666
     functionName: UseSpellFromSkill2
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.9333333
+    functionName: AoeEvent
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

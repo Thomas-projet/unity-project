@@ -43,8 +43,13 @@ public class SkillsManager : MonoBehaviour
     private int spinCount = 0;
 
 
+    //This is the Transform of the second GameObject
+    public Transform m_NextPoint;
+    Quaternion m_MyQuaternion;
+    float m_Speed = 1.0f;
 
-
+    public float turnSmoothTime = 0.1f;
+    float turnSmoothVelocity;
 
     void Start()
     {
@@ -91,7 +96,7 @@ public class SkillsManager : MonoBehaviour
 
         if (view != null && view.isMine)
         {
-            //Skill 5
+            //Skill 5 Matrice
             if (Input.GetKey("b"))
             {
                 antiProjectiles.SetActive(true);
@@ -103,25 +108,26 @@ public class SkillsManager : MonoBehaviour
             }
 
 
-            //Skill 4
+            //Skill 4 FireBall
             if (Input.GetKey("n"))
             {
+                transform.parent.gameObject.transform.rotation = PM.cam.transform.rotation;
                 ScriptFromSkill4.UseSpellFromSkill4();
             }
 
-            //Skill 3
+            //Skill 3 Charge
             if (Input.GetKey("m"))
             {
                 ScriptFromSkill3.UseSpellFromSkill3();
             }
 
-            //Skill 2
+            //Skill 2 AoE
             if (Input.GetKey(KeyCode.Alpha8))
             {
                 animator.SetBool("spin", true);
             }
 
-            //Skill 1
+            //Skill 1 AA
             if (Input.GetKey(KeyCode.Alpha7))
             {
                 animator.SetBool("smash", true);
@@ -237,6 +243,10 @@ public class SkillsManager : MonoBehaviour
         //animator.SetTrigger("stopTrigger");
     }
 
+    public void AoeEvent()
+    {
+        animator.SetBool("smash", false);
+    }
 
 
 

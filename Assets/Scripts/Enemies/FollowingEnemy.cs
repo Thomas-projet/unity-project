@@ -29,6 +29,7 @@ public class FollowingEnemy : MonoBehaviour
             target = SP.player.transform;
             //Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + target.position);
             float distance = Vector3.Distance(target.position, transform.position);
+            transform.LookAt(target.transform);
 
             if (distance <= lookRadius)
             {

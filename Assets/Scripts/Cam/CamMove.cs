@@ -12,7 +12,6 @@ public class CamMove : MonoBehaviour {
         CinemachineCore.GetInputAxis = GetAxisCustom;
 
 
-
         var vcam = GetComponent<CinemachineVirtualCameraBase>();
         if (vcam != null && Tag.Length > 0)
         {
