@@ -18,6 +18,7 @@ public class AntiProjectiles : MonoBehaviour
 
     void FixedUpdate()
     {
+        Quaternion rotation = Quaternion.Euler(0, point.rotation.y, 0);
         Collider[] hitProjectiles = Physics.OverlapBox(point.position, new Vector3(3/2, 2/2, 5/2), point.rotation, enemyLayer);
 
         foreach (Collider enemyProjectile in hitProjectiles)

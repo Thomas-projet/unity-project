@@ -33,6 +33,8 @@ public class PlayerManager : MonoBehaviour
 
     PhotonView view;
 
+    private SkillsManager SM;
+
 
     private void Start()
     {
@@ -45,6 +47,9 @@ public class PlayerManager : MonoBehaviour
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
         view = GetComponent<PhotonView>();
+
+
+        SM = animator.GetComponent<SkillsManager>();
     }
 
     public void FaceTarget()
@@ -84,50 +89,57 @@ public class PlayerManager : MonoBehaviour
 
                 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
-
-                if (Input.GetKey("mouse 0"))
+                if (!SM.biscuit && !SM.matriceIsActive)
                 {
-                    controller.Move(keepDirectionUnderLeftClick.normalized * speed * Time.deltaTime);
-
+                    transform.rotation = Quaternion.Euler(0f, angle, 0f);
                 }
+       
+                controller.Move(moveDir.normalized * speed * Time.deltaTime);
 
-                else
-                {
-                    //To look at targeted enemy while attacking : if (Input.GetKey("mouse 1") && GameManager.instance.isNotAttacking == true)
 
-                    if (Input.GetKey("mouse 1"))
-                    {
-                        //if not attacking enemies
-                        if (!Input.GetKey(KeyCode.Alpha2) || !Input.GetKey(KeyCode.Alpha3))
-                        {
-                            transform.rotation = Quaternion.Euler(0, cam.eulerAngles.y, 0);
-                        }
+                //if (Input.GetKey("mouse 0"))
+                //{
+                //    controller.Move(keepDirectionUnderLeftClick.normalized * speed * Time.deltaTime);
 
-                        controller.Move(moveDir.normalized * speed * Time.deltaTime);
-                        keepDirectionUnderLeftClick = moveDir;
+                //}
 
-                    }
-                    else
-                    {
-                        if (GameManager.instance.isNotAttacking == true)
-                        {
-                            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-                        }
-                        else
-                        {
-                            if (GM.targetedEnemy != null)
-                            {
-                                FaceTarget();
-                            }
+                //else
+                //{
+                //    //To look at targeted enemy while attacking : if (Input.GetKey("mouse 1") && GameManager.instance.isNotAttacking == true)
 
-                        }
+                //    if (Input.GetKey("mouse 1"))
+                //    {
+                //        //if not attacking enemies
+                //        if (!Input.GetKey(KeyCode.Alpha2) || !Input.GetKey(KeyCode.Alpha3))
+                //        {
+                //            transform.rotation = Quaternion.Euler(0, cam.eulerAngles.y, 0);
+                //        }
 
-                        controller.Move(moveDir.normalized * speed * Time.deltaTime);
-                        keepDirectionUnderLeftClick = moveDir;
+                //        controller.Move(moveDir.normalized * speed * Time.deltaTime);
+                //        keepDirectionUnderLeftClick = moveDir;
 
-                    }
+                //    }
+                //    else
+                //    {
+                //        if (GameManager.instance.isNotAttacking == true)
+                //        {
+                //            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+                //        }
+                //        else
+                //        {
+                //            if (GM.targetedEnemy != null)
+                //            {
+                //                FaceTarget();
+                //            }
 
-                }
+                //        }
+
+                //        controller.Move(moveDir.normalized * speed * Time.deltaTime);
+                //        keepDirectionUnderLeftClick = moveDir;
+
+                //    }
+
+                //}
             }
             else
             {

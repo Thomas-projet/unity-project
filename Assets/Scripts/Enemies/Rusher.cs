@@ -32,7 +32,7 @@ public class Rusher : MonoBehaviour
                 if(!hasExploded)
                 {
                     Instantiate(explosionEffect, transform.position, transform.rotation);
-                    Debug.Log("BOOOOOOM");
+                    //Debug.Log("BOOOOOOM");
                     hasExploded = true;
 
                     Destroy(gameObject);

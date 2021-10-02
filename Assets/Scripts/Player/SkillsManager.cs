@@ -51,6 +51,10 @@ public class SkillsManager : MonoBehaviour
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
 
+    public bool biscuit = false;
+    public bool matriceIsActive = false;
+
+
     void Start()
     {
         GM = FindObjectOfType<GameManager>();
@@ -93,49 +97,54 @@ public class SkillsManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        float camAngle = PM.cam.eulerAngles.y;
 
         if (view != null && view.isMine)
         {
             //Skill 5 Matrice
-            if (Input.GetKey("b"))
+            if (Input.GetKey("mouse 1"))
             {
+                
+                matriceIsActive = true;
+                //transform.parent.gameObject.transform.rotation = PM.cam.transform.rotation;
+                Debug.Log(PM.cam.transform.rotation);
+                transform.parent.gameObject.transform.rotation = Quaternion.Euler(0f, camAngle, 0f);
                 antiProjectiles.SetActive(true);
                 //ScriptFromSkill5.UseSpellFromSkill5();
             }
             else
             {
+                matriceIsActive = false;
                 antiProjectiles.SetActive(false);
             }
 
 
             //Skill 4 FireBall
-            if (Input.GetKey("n"))
+            if (Input.GetKey(KeyCode.Alpha4))
             {
                 transform.parent.gameObject.transform.rotation = PM.cam.transform.rotation;
                 ScriptFromSkill4.UseSpellFromSkill4();
             }
 
             //Skill 3 Charge
-            if (Input.GetKey("m"))
+            if (Input.GetKey(KeyCode.Alpha3))
             {
                 ScriptFromSkill3.UseSpellFromSkill3();
             }
 
-            //Skill 2 AoE
-            if (Input.GetKey(KeyCode.Alpha8))
-            {
-                animator.SetBool("spin", true);
-            }
 
-            //Skill 1 AA
-            if (Input.GetKey(KeyCode.Alpha7))
+
+            //Skill 2 AoE
+            if (Input.GetKey(KeyCode.Alpha2))
             {
                 animator.SetBool("smash", true);
             }
 
 
+            //Skill 1 AA
 
-            if (Input.GetKey(KeyCode.Alpha9))
+
+            if (Input.GetKey("mouse 0"))
             {
 
                 if (!IS.sc.isCooldown)
@@ -147,6 +156,7 @@ public class SkillsManager : MonoBehaviour
                     attackingBool = true;
                     animator.SetBool("attacking", attackingBool);
 
+
                     Debug.Log("HEY");
                     //
                     //animator.SetTrigger("attackTrigger");
@@ -155,75 +165,87 @@ public class SkillsManager : MonoBehaviour
 
 
 
-            if (Input.GetKey(KeyCode.Alpha2))
+            //Ult
+            if (Input.GetKey(KeyCode.Alpha8))
             {
-                //
-                //animator.SetBool("attacking", true);
-                animator.SetTrigger("stopTrigger");
-
-                GameManager.instance.isNotAttacking = false;
-                if (GM.targetedEnemy != null)
-                {
-
-                    PM.FaceTarget();
-                    ScriptFromWeapon1.ShootBullets();
-                }
+                animator.SetBool("spin", true);
             }
 
-            else if (Input.GetKey(KeyCode.Alpha3))
+            //if (Input.GetKey(KeyCode.Alpha2))
+            //{
+            //    //
+            //    //animator.SetBool("attacking", true);
+            //    animator.SetTrigger("stopTrigger");
+
+            //    GameManager.instance.isNotAttacking = false;
+            //    if (GM.targetedEnemy != null)
+            //    {
+
+            //        PM.FaceTarget();
+            //        ScriptFromWeapon1.ShootBullets();
+            //    }
+            //}
+
+            //else if (Input.GetKey(KeyCode.Alpha3))
+            //{
+
+            //    if (GM.targetedEnemy != null)
+            //    {
+            //        ScriptSkillA.UseSpell();
+            //        if (!ScriptFromWeapon2.isOnCooldown)
+            //        {
+            //            PM.FaceTarget();
+            //        }
+
+            //        ScriptFromWeapon2.Shoot();
+
+            //    }
+            //}
+
+            //else if (Input.GetKey(KeyCode.Alpha4))
+            //{
+            //    GameManager.instance.isNotAttacking = false;
+            //    if (GM.targetedEnemy != null)
+            //    {
+            //        PM.FaceTarget();
+            //    }
+            //    ScriptCharge.ChargeFunction();
+            //}
+
+            //else if (Input.GetKey(KeyCode.Alpha5))
+            //{
+            //    GameManager.instance.isNotAttacking = false;
+            //    if (GM.targetedEnemy != null)
+            //    {
+            //        //FaceTarget(GM.targetedEnemy.transform.position);
+
+            //    }
+            //}
+
+            //Grab?
+            //else if (Input.GetKey(KeyCode.Alpha6))
+            //{
+            //    GameManager.instance.isNotAttacking = false;
+            //    if (GM.targetedEnemy != null)
+            //    {
+            //        PM.FaceTarget();
+            //        ScriptGrab.GrabFunction();
+            //    }
+            //}
+            if(biscuit)
             {
-
-                if (GM.targetedEnemy != null)
-                {
-                    ScriptSkillA.UseSpell();
-                    if (!ScriptFromWeapon2.isOnCooldown)
-                    {
-                        PM.FaceTarget();
-                    }
-
-                    ScriptFromWeapon2.Shoot();
-
-                }
+                transform.parent.gameObject.transform.rotation = Quaternion.Euler(0f, camAngle, 0f);
             }
-
-            else if (Input.GetKey(KeyCode.Alpha4))
-            {
-                GameManager.instance.isNotAttacking = false;
-                if (GM.targetedEnemy != null)
-                {
-                    PM.FaceTarget();
-                }
-                ScriptCharge.ChargeFunction();
-            }
-
-            else if (Input.GetKey(KeyCode.Alpha5))
-            {
-                GameManager.instance.isNotAttacking = false;
-                if (GM.targetedEnemy != null)
-                {
-                    //FaceTarget(GM.targetedEnemy.transform.position);
-
-                }
-            }
-
-            else if (Input.GetKey(KeyCode.Alpha6))
-            {
-                GameManager.instance.isNotAttacking = false;
-                if (GM.targetedEnemy != null)
-                {
-                    PM.FaceTarget();
-                    ScriptGrab.GrabFunction();
-                }
-            }
-
+            Debug.Log("biscuit " + biscuit);
         }
     }
 
     public void TEST()
     {
-        Debug.Log("TEST");
+        //Debug.Log("TEST");
         attackingBool = false;
         animator.SetBool("attacking", attackingBool);
+
         //
         //animator.SetTrigger("stopTrigger");
     }
