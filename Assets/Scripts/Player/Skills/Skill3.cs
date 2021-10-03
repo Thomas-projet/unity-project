@@ -9,8 +9,13 @@ public class Skill3 : MonoBehaviour
     public float dashTime;
 
     public bool isCooldown = false;
-    private float cooldownTime = 1.0f;
+    private float cooldownTime = 5.0f;
     public float cooldownTimer = 0.0f;
+
+    public bool isCharging = false;
+    private float chargeTime = 2.0f;
+    public float chargeTimer = 0.0f;
+
 
     private Animator animator;
 
@@ -20,6 +25,7 @@ public class Skill3 : MonoBehaviour
 
     Collider chargedEnemy = null;
 
+    private bool cancelCharge = false;
 
 
 
@@ -36,16 +42,26 @@ public class Skill3 : MonoBehaviour
     {
         if (isCooldown)
         {
-            animator.SetBool("dash", true);
             ApplyCooldown();
-            
-            if(PM.moveDir == new Vector3(0,0,0))
+            if (Input.GetKey(KeyCode.Alpha3) && cancelCharge==false && isCharging)
             {
-                Debug.Log("PM.moveDir");
-                PM.controller.Move(Vector3.forward * dashSpeed * Time.deltaTime);
+                animator.SetBool("dash", true);
+                if (PM.moveDir == new Vector3(0, 0, 0))
+                {
+                    Debug.Log("PM.moveDir");
+                    PM.controller.Move(Vector3.forward * dashSpeed * Time.deltaTime);
+                }
+                PM.controller.Move(PM.moveDir * dashSpeed * Time.deltaTime);
+                CatchEnemy();
             }
-            PM.controller.Move(PM.moveDir * dashSpeed * Time.deltaTime);
-            CatchEnemy();
+            else
+            {
+                cancelCharge = true;
+            }
+           
+
+            
+
         }
         else
         {
@@ -58,7 +74,14 @@ public class Skill3 : MonoBehaviour
 
     void ApplyCooldown()
     {
+        chargeTimer -= Time.deltaTime;
         cooldownTimer -= Time.deltaTime;
+
+        if (chargeTimer < 0.0f)
+        {
+            isCharging = false;
+        }
+
         if (cooldownTimer < 0.0f)
         {
             isCooldown = false;
@@ -78,8 +101,14 @@ public class Skill3 : MonoBehaviour
         }
         else
         {
+            isCharging = true;
             isCooldown = true;
+
             cooldownTimer = cooldownTime;
+            chargeTimer = chargeTime;
+
+            cancelCharge = false;
+
             Debug.Log("SKILL 3 cd activated");
 
         }

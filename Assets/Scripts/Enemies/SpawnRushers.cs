@@ -27,7 +27,7 @@ public class SpawnRushers : MonoBehaviour
         int randomPoint = Random.Range(0, 3);
         Instantiate(ObjectToSpawn, waypoints[randomPoint].position, waypoints[randomPoint].rotation);
 
-        if (numberOfEnemyToSpawn < 0)
+        if (numberOfEnemyToSpawn <= 0)
         {
             CancelInvoke("SpawnObject");
         }
